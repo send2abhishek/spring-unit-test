@@ -15,7 +15,8 @@ class PersonTest {
 
         // group assertion
 
-        assertAll("test property set", () -> assertEquals(person.getFirstName(), "Abhishek", "name is not Abhishek"),
+        assertAll("test property set",
+                () -> assertEquals(person.getFirstName(), "Abhishek", "name is not Abhishek"),
                 () -> assertEquals(person.getLastName(), "Aryan", "name is not Aryan")
 
         );
