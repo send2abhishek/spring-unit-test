@@ -23,8 +23,8 @@ class IndexControllerTest {
 
     @DisplayName("test to verify the exception")
     @Test
-    void oupsHandler() {
-        // thi assertion is used for test boolean condition
-        assertTrue("notimplemented".equals(controller.oupsHandler()),()->"this is custom message which suggest that this is an error ");
+    void oopsHandler() {
+        // test the exception handler
+      assertThrows(ValueNotFoudException.class,()->controller.oopsHandler());
     }
 }
