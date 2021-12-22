@@ -3,6 +3,8 @@ package com.learn.unit.test.spirngunittest.controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,5 +28,17 @@ class IndexControllerTest {
     void oopsHandler() {
         // test the exception handler
       assertThrows(ValueNotFoudException.class,()->controller.oopsHandler());
+    }
+
+    @EnabledOnOs(OS.MAC)
+    @Test
+    void testOnMac() {
+
+    }
+
+    @EnabledOnOs(OS.WINDOWS)
+    @Test
+    void testOnWindows() {
+
     }
 }
