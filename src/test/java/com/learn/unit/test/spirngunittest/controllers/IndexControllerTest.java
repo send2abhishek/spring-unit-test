@@ -46,7 +46,6 @@ class IndexControllerTest implements ControllerTests {
     }
 
     @RepeatedTest(value = 5, name = "{displayName} - repetition {currentRepetition} of {totalRepetitions}")
-    @Test
     @DisplayName("repeat test")
     void repeatedTest() {
 
