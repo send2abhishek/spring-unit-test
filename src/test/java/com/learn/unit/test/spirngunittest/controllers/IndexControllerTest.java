@@ -3,6 +3,7 @@ package com.learn.unit.test.spirngunittest.controllers;
 import com.learn.unit.test.spirngunittest.ControllerTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
@@ -29,7 +30,7 @@ class IndexControllerTest implements ControllerTests {
     @Test
     void oopsHandler() {
         // test the exception handler
-      assertThrows(ValueNotFoudException.class,()->controller.oopsHandler());
+        assertThrows(ValueNotFoudException.class, () -> controller.oopsHandler());
     }
 
     @EnabledOnOs(OS.MAC)
@@ -41,6 +42,13 @@ class IndexControllerTest implements ControllerTests {
     @EnabledOnOs(OS.WINDOWS)
     @Test
     void testOnWindows() {
+
+    }
+
+    @RepeatedTest(value = 5, name = "{displayName} - repetition {currentRepetition} of {totalRepetitions}")
+    @Test
+    @DisplayName("repeat test")
+    void repeatedTest() {
 
     }
 }
