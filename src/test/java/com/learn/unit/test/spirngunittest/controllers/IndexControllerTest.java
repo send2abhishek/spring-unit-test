@@ -1,5 +1,6 @@
 package com.learn.unit.test.spirngunittest.controllers;
 
+import com.learn.unit.test.spirngunittest.ControllerTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.condition.OS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class IndexControllerTest {
+class IndexControllerTest implements ControllerTests {
 
     IndexController controller;
 
