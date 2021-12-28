@@ -74,4 +74,15 @@ class SpecialitySDJpaServiceTest {
         assertThat(serviceById).isNotNull();
         verify(repository).findById(1L);
     }
+
+    // test to match arguments
+    @Test
+    void testObject(){
+
+        Speciality speciality=new Speciality();
+        service.delete(speciality);
+
+        verify(repository).delete(any(Speciality.class));
+
+    }
 }
