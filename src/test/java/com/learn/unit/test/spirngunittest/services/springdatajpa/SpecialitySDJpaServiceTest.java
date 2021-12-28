@@ -8,6 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +41,7 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(repository,times(2)).deleteById(1L);
+        verify(repository, times(2)).deleteById(1L);
     }
 
     // test can be executed max of 5
@@ -47,7 +50,7 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(repository,atMost(5)).deleteById(1L);
+        verify(repository, atMost(5)).deleteById(1L);
     }
 
     // test can be executed at least of 3 times
@@ -57,7 +60,18 @@ class SpecialitySDJpaServiceTest {
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(repository,atLeast(3)).deleteById(1L);
+        verify(repository, atLeast(3)).deleteById(1L);
     }
 
+    @Test
+    void findById() {
+        Speciality speciality = new Speciality();
+
+        when(repository.findById(1L)).thenReturn(Optional.of(speciality));
+
+        Speciality serviceById = service.findById(1L);
+
+        assertThat(serviceById).isNotNull();
+        verify(repository).findById(1L);
+    }
 }
