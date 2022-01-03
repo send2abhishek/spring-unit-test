@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,6 +24,9 @@ class OwnerControllerTest {
     private static final String REDIRECT_OWNERS_5 = "redirect:/owners/5";
     @Mock
     OwnerService ownerService;
+
+    @Mock
+    Model model;
 
     @InjectMocks
     OwnerController controller;
@@ -68,12 +71,18 @@ class OwnerControllerTest {
     void processFindFormWildCardFound() {
 
         Owner owner = new Owner(1L, "abhishek", "Find");
+        // verify the order of execution means first it should execute the ownerService then model
+        InOrder inOrder=Mockito.inOrder(ownerService,model);
         // when
-        String viewName = controller.processFindForm(owner, result, Mockito.mock(Model.class));
+        String viewName = controller.processFindForm(owner, result, model);
 
         // then
         assertThat("%Find%").isEqualToIgnoringCase(captor.getValue());
         assertThat("owners/ownersList").isEqualToIgnoringCase(viewName);
+
+        // Inorder assertion check the order of execution
+        inOrder.verify(ownerService).findAllByLastNameLike(anyString());
+        inOrder.verify(model).addAttribute(anyString(),anyList());
     }
 
     @Test
