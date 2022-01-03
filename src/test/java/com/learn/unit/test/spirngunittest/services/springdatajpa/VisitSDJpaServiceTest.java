@@ -15,6 +15,7 @@ import java.util.Set;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -31,14 +32,14 @@ class VisitSDJpaServiceTest {
     @Test
     void findAll() {
 
-        Visit visit=new Visit();
+        Visit visit = new Visit();
 
-        Set<Visit> visits=new HashSet<>();
+        Set<Visit> visits = new HashSet<>();
         visits.add(visit);
         // set the condition to return one set of visit object
         when(repository.findAll()).thenReturn(visits);
 
-        Set<Visit> foundVisits=service.findAll();
+        Set<Visit> foundVisits = service.findAll();
         // first assertion
         assertThat(foundVisits).hasSize(1);
         // second assertion
@@ -53,7 +54,7 @@ class VisitSDJpaServiceTest {
 
         when(repository.findById(1L)).thenReturn(Optional.of(visit));
 
-        Visit returnVisit=service.findById(1L);
+        Visit returnVisit = service.findById(1L);
         assertThat(returnVisit).isNotNull();
         verify(repository).findById(anyLong());
     }
@@ -62,10 +63,10 @@ class VisitSDJpaServiceTest {
     @Test
     void save() {
 
-        Visit visit=new Visit();
+        Visit visit = new Visit();
         when(repository.save(any(Visit.class))).thenReturn(visit);
 
-        Visit savedVisit=service.save(new Visit());
+        Visit savedVisit = service.save(new Visit());
 
         assertThat(savedVisit).isNotNull();
         verify(repository).save(any(Visit.class));
@@ -74,7 +75,7 @@ class VisitSDJpaServiceTest {
     @DisplayName("Test delete ")
     @Test
     void delete() {
-        Visit visit=new Visit();
+        Visit visit = new Visit();
         service.delete(visit);
 
         // verify the arguments
@@ -88,5 +89,13 @@ class VisitSDJpaServiceTest {
         service.deleteById(1L);
         // verify the test
         verify(repository, atLeast(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void testDoThrow() {
+
+        doThrow(new RuntimeException("exception at runtime")).when(repository).delete(any());
+        assertThrows(RuntimeException.class, () -> repository.delete(new Visit()));
+        verify(repository).delete(any());
     }
 }
