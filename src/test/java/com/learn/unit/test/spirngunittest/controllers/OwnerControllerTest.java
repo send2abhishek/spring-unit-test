@@ -16,6 +16,8 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
 
+    private static final String OWNERS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
+    private static final String REDIRECT_OWNERS_5 = "redirect:/owners/5";
     @Mock
     OwnerService ownerService;
 
@@ -37,7 +39,7 @@ class OwnerControllerTest {
         String viewName=controller.processCreationForm(owner,result);
 
         //then
-        assertThat(viewName).isEqualToIgnoringCase("owners/createOrUpdateOwnerForm");
+        assertThat(viewName).isEqualToIgnoringCase(OWNERS_CREATE_OR_UPDATE_OWNER_FORM);
     }
 
     @Test
@@ -53,6 +55,6 @@ class OwnerControllerTest {
         String viewName=controller.processCreationForm(owner,result);
 
         //then
-        assertThat(viewName).isEqualToIgnoringCase("redirect:/owners/5");
+        assertThat(viewName).isEqualToIgnoringCase(REDIRECT_OWNERS_5);
     }
 }
